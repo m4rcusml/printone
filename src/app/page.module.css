@@ -1,0 +1,55 @@
+.main {
+  background-image: url('../assets/fundo.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.form {
+  background-color: #fff4;
+  width: 75%;
+  height: 75%;
+  min-width: 300px;
+  min-height: 250px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formHeader {
+  background-color: blue;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.inputsContainer {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  padding: 20px 0;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.redirectToCadastro {
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
+
+.button {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 0;
+  margin: 10px;
+  border: none;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "5c7c72b14bc18186ea9d9517ebd45e65066f2f1179b4900cd6d71d1181d0eb",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.3.0-canary.9",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.8",
+    "@types/react": "18.3.1",
+    "typescript": "5.4.5"
+  }
+}
