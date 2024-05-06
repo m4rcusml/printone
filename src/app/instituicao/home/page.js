@@ -1,11 +1,11 @@
-import { BigButton } from '@/components/BigButton';
-import { Header } from '@/components/Header';
+import { BigButton } from '../../../components/BigButton';
+import { Header } from '../../../components/Header';
 import styles from './styles.module.css';
 
-import IconCadastro from '@/assets/cadastro.png';
-import IconAgrupamento from '@/assets/agrupamento.png';
-import IconAnalise from '@/assets/analise.png';
-import IconRegistro from '@/assets/registro.png';
+import IconCadastro from '../../../assets/cadastro.png';
+import IconAgrupamento from '../../../assets/agrupamento.png';
+import IconAnalise from '../../../assets/analise.png';
+import IconRegistro from '../../../assets/registro.png';
 
 export default function HomeInstituicao() {
     return (

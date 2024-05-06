@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from './styles.module.css';
 
-import Logo from '@/assets/logo.png';
+import Logo from '../../assets/logo.png';
 
 export function Header() {
     return (
