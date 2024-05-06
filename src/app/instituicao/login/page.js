@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import styles from "../../page.module.css";
-import { Textfield } from "@/components/Textfield";
+import { Textfield } from "../../../components/Textfield";
 import { useRouter } from "next/navigation";
 
 export default function LoginInstitucao() {
