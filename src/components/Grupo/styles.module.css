@@ -1,0 +1,40 @@
+.container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    gap: 10px;
+}
+
+.container:hover {
+    cursor: pointer;
+}
+
+.details {
+    height: 200px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #fff6;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    gap: 5px;
+}
+
+.box {
+    width: 35px;
+    height: 35px;
+    background-color: #fff9;
+}
+
+.add {
+    height: 200px;
+    padding: 15px;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff6;
+    border-radius: 20px;
+}

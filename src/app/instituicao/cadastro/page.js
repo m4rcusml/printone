@@ -36,6 +36,11 @@ export default function CadastroInstituicao() {
                         label={'Telefone'}
                         placeholder={'Digite um telefone para contato'}
                     />
+                    <Textfield
+                        label={'Senha'}
+                        type='password'
+                        placeholder={'Digite sua senha'}
+                    />
                     <p className={styles.redirectToCadastro}>
                         Já possui uma conta? <Link href={'/instituicao/login'}>Entre agora</Link>
                     </p>

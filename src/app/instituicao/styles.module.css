@@ -25,4 +25,13 @@
     font-size: 18px;
     padding: 10px 0;
     border: none;
-  }
+}
+
+.listaDeGrupos {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px;
+    gap: 30px;
+}

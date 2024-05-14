@@ -25,6 +25,7 @@ export default function LoginInstitucao() {
                     />
                     <Textfield
                         label={'Senha'}
+                        type='password'
                         placeholder={'Digite sua senha'}
                     />
                     <p className={styles.redirectToCadastro}>
