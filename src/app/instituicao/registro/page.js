@@ -6,7 +6,7 @@ export default function Registro() {
         <div className={styles.container}>
             <Header />
             <main className={styles.main}>
-
+                
             </main>
         </div>
     )
