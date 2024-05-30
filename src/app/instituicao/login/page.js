@@ -3,23 +3,31 @@ import Link from "next/link";
 import styles from "../../page.module.css";
 import { Textfield } from "../../../components/Textfield";
 import { useRouter } from "next/navigation";
-import {  login } from "../../../firebase/firebase";
+import { login } from "../../../firebase/firebase";
 
 export default function LoginInstitucao() {
     const router = useRouter();
 
     async function handleSubmit(event) {
         event.preventDefault();
-       
-        var email = document.getElementById('E-mail')
-        var password = document.getElementById('Senha')
-        
-        var isLogged = login(email.value, password.value)
-        if(isLogged == true){
-        
-            router.push('/instituicao/home');
+
+        var email = document.getElementById('E-mail');
+        var password = document.getElementById('Senha');
+
+        // Call the 'login' function once and await its result
+        if (email.value == undefined || password.value == undefined) {
+            alert('preencha os campos')
+        } else {
+            var isLogged = await login(email.value, password.value);
+            console.log("isLogged antes do push ou router" + isLogged);
+            if (isLogged) {
+                router.push('/instituicao/home');
+            } else {
+                alert('Usuário não cadastrado/senha incorreta');
+            }
         }
-        
+
+
     }
 
     return (

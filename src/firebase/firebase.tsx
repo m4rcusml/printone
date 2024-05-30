@@ -4,6 +4,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, up
 import { setDoc, doc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { collection, query, where, orderBy, limit, getDocs, addDoc, onSnapshot } from "firebase/firestore";
+import router from "next/router";
 
 
 const firebaseConfig = {
@@ -36,17 +37,19 @@ export function createAccount( email, password, customData){
         console.log(error.message);
     })
 }
-export function login( email, password){
-    
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) =>{
+export async function login( email, password){
+    var value
+    await signInWithEmailAndPassword(auth, email, password).then((userCredential) =>{
         user = userCredential.user;
-        
+        value = true
+    
     }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error.message)
+        value = false
     })
-    return true
+        return value
 }
 export async function setUser(customData){
     const db = getFirestore();
