@@ -1,16 +1,16 @@
 'use client'
 import * as styles from './styles.module.css';
 
-export function Grupo({ grupo }) {
+export function Grupo({ group }) {
 
     function handleClick() {
-        alert(`Alunos => ${grupo.alunos.length}`);
+        alert(`A`);
     }
     
     return (
-        <div className={styles.container} onClick={handleClick}>
+        <div className={styles.container} >
             <h3 style={{ textAlign: 'center' }}>
-                {grupo.nome}
+                {group}
             </h3>
             <div className={styles.details}>
                 <div className={styles.box} />

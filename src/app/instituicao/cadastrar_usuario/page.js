@@ -8,7 +8,7 @@ import styles from '../styles.module.css';
 export default function CadastrarUsuario() {
     const router = useRouter();
 
-    async function handleCadastrar(e) {
+     async function handleCadastrar(e) {
         e.preventDefault();
         // cadastrar usuario
         const radioInputs = document.querySelectorAll('input[name="sexo"]');
@@ -18,12 +18,11 @@ export default function CadastrarUsuario() {
             selectedValue = radioInput.value;
           }
         });
-        console.log(selectedValue); // Output: "masculino" or "feminino"
 
         
         var nome = document.getElementById('Nome');
         var cpf = document.getElementById('CPF')
-        var dataDeNascimento = document.getElementById('Data de Nascimento')
+        var dataDeNascimento = document.getElementById('Data de nascimento')
         var email = document.getElementById('E-mail')
         var telefone = document.getElementById('Telefone de contato')
         var agrupamento = document.getElementById('Qual agrupamento o usuário pertence?')
@@ -37,11 +36,9 @@ export default function CadastrarUsuario() {
             telefone: telefone.value,
             agrupamento: agrupamento.value
         }
-        await setUser(customData).then(() =>{
-            alert('Usuário cadastrado com sucesso!');
-            router.back();
-        })
-        
+        await setUser(customData)
+        alert('Usuário cadastrado com sucesso!');
+        router.back();
     }
 
     return (

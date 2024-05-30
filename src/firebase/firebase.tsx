@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { collection, query, where, orderBy, limit, getDocs, addDoc, onSnapshot } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -49,16 +50,21 @@ export function login( email, password){
 }
 export async function setUser(customData){
     const db = getFirestore();
+    const docRef2 = doc(db, 'agrupamento', customData.agrupamento)
+    var docGroup = {
+        agrupamento: customData.agrupamento
+    }
+    await setDoc(docRef2, docGroup)
     const docRef = doc(db, 'users', customData.cpf);
     var docUser = {
         CPF: customData.cpf,
         nome: customData.nome,
-        dataDeNasciment: customData.dataDeNascimento,
+        dataDeNascimento: customData.dataDeNascimento,
         sexo: customData.sexo,
         email: customData.email,
         telefone: customData.telefone,
         agrupamento: customData.agrupamento,
-        registrador: user.email ? user.email : 'Não acessível'
+        registrador: user?.email ? user.email : 'Não acessível'
     }
     await setDoc(docRef, docUser).then(()=>{
         return true;
@@ -67,4 +73,33 @@ export async function setUser(customData){
     })
 }
 
+export async function getGrouping(){
+    const db = getFirestore(app);
 
+    var ref = collection(db, "agrupamento");
+    var agrupamentoQuery = query(ref, orderBy("agrupamento"))
+
+    const snapshot = await getDocs(agrupamentoQuery);
+    const data = snapshot.docs.map((doc) => doc.data());
+    return data;
+    
+}
+export async function getMembersOfAGrouping(group){
+    const db = getFirestore(app);
+
+    var ref = collection(db, "users");
+    var membersQuery = query(ref, where("agrupamento", "==", group))
+    const snapshot = await getDocs(membersQuery);
+    const data = snapshot.docs.map((doc) => doc.data());
+    return data
+}
+export async function getAllUsers(){
+    const db = getFirestore(app);
+
+    var ref = collection(db, "users");
+    var usersQuery = query(ref, orderBy("nome"))
+    const snapshot = await getDocs(usersQuery);
+    const data = snapshot.docs.map((doc) => doc.data());
+    return data
+
+}

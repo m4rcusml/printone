@@ -1,4 +1,19 @@
 .register{
     background-color: white;
-    color: black
+    color: black;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+
+}
+.label{
+    padding-left: 10px;
+}
+.input{
+    color: rgb(68, 219, 68);
+    padding-left: 10px;
+}
+.output{
+    color: red;
+    padding-left: 10px;
 }

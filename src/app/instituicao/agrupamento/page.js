@@ -3,40 +3,28 @@ import { Header } from '../../../components/Header';
 import { Grupo } from '../../../components/Grupo';
 import styles from '../styles.module.css';
 import * as grupoStyles from '../../../components/Grupo/styles.module.css';
-
+import { getGrouping, getMembersOfAGrouping } from '../../../firebase/firebase';
+import { PopUp } from '../../../components/PopUp'
+import { useEffect, useState } from 'react';
 export default function Agrupamento() {
-    const grupos = [
-        {
-            id: 1,
-            nome: 'Grupo 1',
-            alunos: [
-                { id: 1, nome: 'Aluno 1' },
-                { id: 2, nome: 'Aluno 2' },
-                { id: 3, nome: 'Aluno 3' },
-            ]
-        },
-        {
-            id: 2,
-            nome: 'Grupo 2',
-            alunos: [
-                { id: 4, nome: 'Aluno 4' },
-                { id: 5, nome: 'Aluno 5' },
-                { id: 6, nome: 'Aluno 6' },
-            ]
-        },
-        {
-            id: 3,
-            nome: 'Grupo 3',
-            alunos: [
-                { id: 7, nome: 'Aluno 7' },
-                { id: 8, nome: 'Aluno 8' },
-                { id: 9, nome: 'Aluno 9' },
-            ]
-        }
-    ];
+    //PopUp
+    var [component, setComponent] = useState(null)
+    async function OpenPopUp(grouping){
+        var members = await getMembersOfAGrouping(grouping);
+        setComponent(<PopUp members={members} grouping={grouping} setComp={setComponent} />)
+    }
+    // get agrupamentos
+    var [users, setUsers] = useState([])
+    var [isToShow, setIsToShow] = useState(false)
+    useEffect(() => {
+        getGrouping().then((grouping) => {
+            setUsers(grouping);
+            setIsToShow(true);
+        });
+    }, [])
 
     function handleAdd() {
-
+        setComponent()
     }
 
     return (
@@ -46,9 +34,16 @@ export default function Agrupamento() {
                 <h1 className={styles.title}>Agrupamento</h1>
 
                 <div className={styles.listaDeGrupos}>
-                    {grupos.map((grupo, index) => (
-                        <Grupo key={index} grupo={grupo} />
-                    ))}
+                    
+                    {
+                        isToShow &&
+                            users?.map((user) => (
+                                <div onClick={ () => {OpenPopUp(user.agrupamento)} }>
+                                    <Grupo group={user.agrupamento}/>
+                                </div>
+                                
+                            ))
+                    }
 
                     <div className={grupoStyles.container} onClick={handleAdd}>
                         <h3 style={{ textAlign: 'center' }}>
@@ -61,7 +56,22 @@ export default function Agrupamento() {
                         </div>
                     </div>
                 </div>
+                <div id='popupDiv'>
+                    {component}
+                </div>
             </main>
         </div>
     )
 }
+/*
+{grupos.map((grupo, index) => (
+    <Grupo key={index} grupo={grupo} />
+    ))}
+    
+    {
+        toggleGroup && group &&
+        group.map((group) => (
+            <Grupo grupo={group} />
+        ))
+    }
+    */
