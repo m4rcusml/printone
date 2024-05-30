@@ -16,3 +16,11 @@
     padding: 20px 10px;
     border-bottom: 2px solid white;
 }
+.inputsContainer {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    padding: 20px 0;
+    flex-direction: column;
+    gap: 10px;
+  }

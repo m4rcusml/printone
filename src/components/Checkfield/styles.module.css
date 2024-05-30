@@ -1,0 +1,17 @@
+.container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.field {
+    background-color: #ddd;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+}

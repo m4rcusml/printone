@@ -2,13 +2,33 @@
 import Link from 'next/link';
 import styles from '../../page.module.css';
 import { Textfield } from '../../../components/Textfield';
+import { createAccount } from '../../../firebase/firebase';
+import { useRouter } from "next/navigation";
 
 export default function CadastroInstituicao() {
+    const router = useRouter();
+
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        console.log('Cadastro concluido');
+        var instituicao = document.getElementById('Nome da instituição')
+        var email = document.getElementById('E-mail');
+        var cep = document.getElementById('CEP');
+        var cnpj = document.getElementById('CNPJ');
+        var telefone = document.getElementById('Telefone');
+        var senha = document.getElementById('Senha');
+        var customData = {
+            instituicao: instituicao.value,
+            email: email.value,
+            cep: cep.value,
+            cnpj: cnpj.value,
+            telefone: telefone.value,
+            senha: senha.value
+        }
+        createAccount(email.value, senha.value, customData);
+        console.log('Cadastro concluido\n' + customData);
+        
+        router.push("../instituicao/login")
     }
 
     return (
