@@ -26,8 +26,6 @@ export default function LoginInstitucao() {
                 alert('Usuário não cadastrado/senha incorreta');
             }
         }
-
-
     }
 
     return (
