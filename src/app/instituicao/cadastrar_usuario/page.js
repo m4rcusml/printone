@@ -98,7 +98,7 @@ export default function CadastrarUsuario() {
                         label='Qual agrupamento o usuário pertence?'
                         placeholder='Digite o agrupamento do usuário'
                     />
-
+                    
                     <button className={styles.button}>Cadastrar</button>
                 </form>
             </main>

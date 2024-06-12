@@ -1,20 +1,21 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { collection, query, where, orderBy, limit, getDocs, addDoc, onSnapshot } from "firebase/firestore";
 import router from "next/router";
+import { deleteDoc } from "firebase/firestore";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCmbeYUMgkPRegpqdquZBWThZI-1hBul90",
-  authDomain: "printone-14ba4.firebaseapp.com",
-  projectId: "printone-14ba4",
-  storageBucket: "printone-14ba4.appspot.com",
-  messagingSenderId: "79021256895",
-  appId: "1:79021256895:web:cb17f53036cff8867e960a",
-  measurementId: "G-JBG1WN8N92"
+    apiKey: "AIzaSyCmbeYUMgkPRegpqdquZBWThZI-1hBul90",
+    authDomain: "printone-14ba4.firebaseapp.com",
+    projectId: "printone-14ba4",
+    storageBucket: "printone-14ba4.appspot.com",
+    messagingSenderId: "79021256895",
+    appId: "1:79021256895:web:cb17f53036cff8867e960a",
+    measurementId: "G-JBG1WN8N92"
 };
 
 // Initialize Firebase
@@ -23,35 +24,36 @@ const auth = getAuth();
 var user;
 
 
-export function createAccount( email, password, customData){  
-    createUserWithEmailAndPassword(auth, email, password).then((userCredential) =>{
+export function createAccount(email, password, customData) {
+    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
-        
+
         updateProfile(user, customData).then(() => {
 
-        }).catch((error) =>{
+        }).catch((error) => {
             console.log(error.message);
         })
-        
+
     }).catch((error) => {
         console.log(error.message);
     })
 }
-export async function login( email, password){
+export async function login(email, password) {
     var value
-    await signInWithEmailAndPassword(auth, email, password).then((userCredential) =>{
+    await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         user = userCredential.user;
         value = true
-    
+
     }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error.message)
         value = false
     })
-        return value
+    return value
 }
-export async function setUser(customData){
+export async function setUser(customData) {
+    var numero = Math.floor(Math.random() * 999) + 1;
     const db = getFirestore();
     const docRef2 = doc(db, 'agrupamento', customData.agrupamento)
     var docGroup = {
@@ -66,17 +68,18 @@ export async function setUser(customData){
         sexo: customData.sexo,
         email: customData.email,
         telefone: customData.telefone,
+        ID: numero,
         agrupamento: customData.agrupamento,
         registrador: user?.email ? user.email : 'Não acessível'
     }
-    await setDoc(docRef, docUser).then(()=>{
+    await setDoc(docRef, docUser).then(() => {
         return true;
     }).catch((error) => {
         console.log(error.message);
     })
 }
 
-export async function getGrouping(){
+export async function getGrouping() {
     const db = getFirestore(app);
 
     var ref = collection(db, "agrupamento");
@@ -85,9 +88,9 @@ export async function getGrouping(){
     const snapshot = await getDocs(agrupamentoQuery);
     const data = snapshot.docs.map((doc) => doc.data());
     return data;
-    
+
 }
-export async function getMembersOfAGrouping(group){
+export async function getMembersOfAGrouping(group) {
     const db = getFirestore(app);
 
     var ref = collection(db, "users");
@@ -96,13 +99,37 @@ export async function getMembersOfAGrouping(group){
     const data = snapshot.docs.map((doc) => doc.data());
     return data
 }
-export async function getAllUsers(){
+export async function getAllUsers() {
     const db = getFirestore(app);
 
     var ref = collection(db, "users");
-    var usersQuery = query(ref, orderBy("nome"))
+    var usersQuery = query(ref,where("registrador", "==", user.email), orderBy("nome"))
     const snapshot = await getDocs(usersQuery);
     const data = snapshot.docs.map((doc) => doc.data());
     return data
 
 }
+export async function deleteGrouping(group) {
+    const db = getFirestore(app);
+    const docRef = doc(db, 'agrupamento', group);
+    await deleteDoc(docRef);
+}
+export async function deleteUsers(chave) {
+    const db = getFirestore(app);
+    if(!db){
+        console.error('getFirestore retornou undefined');
+        return;
+    }
+    const docRef = doc(db, 'users', chave);
+    if(!docRef){
+        console.error('doc retornou undefined')
+        return;
+    }
+    await deleteDoc(docRef);
+   
+}
+
+/** const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const docRef = doc(db, 'users', key);
+    await deleteDoc(docRef); */

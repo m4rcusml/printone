@@ -30,7 +30,7 @@ export default function Registro() {
                     {
                         isToShow &&
                         users?.map((user) => (
-                            <RegisterText label={user.nome} />
+                            <RegisterText label={user.nome} chave={user.id}/>
                         ))
                     }
 
