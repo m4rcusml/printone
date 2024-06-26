@@ -51,16 +51,7 @@ export default function Agrupamento() {
                             ))
                     }
 
-                    <div className={grupoStyles.container} onClick={handleAdd}>
-                        <h3 style={{ textAlign: 'center' }}>
-                            Adicionar
-                        </h3>
-                        <div className={grupoStyles.add}>
-                            <p className={grupoStyles.plus}>
-                                +
-                            </p>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div id='popupDiv'>
                     {component}
@@ -80,4 +71,15 @@ export default function Agrupamento() {
             <Grupo grupo={group} />
         ))
     }
+
+    <div className={grupoStyles.container} onClick={handleAdd}>
+                        <h3 style={{ textAlign: 'center' }}>
+                            Adicionar
+                        </h3>
+                        <div className={grupoStyles.add}>
+                            <p className={grupoStyles.plus}>
+                                +
+                            </p>
+                        </div>
+                    </div>
     */
