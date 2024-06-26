@@ -4,9 +4,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, up
 import { setDoc, doc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { collection, query, where, orderBy, limit, getDocs, addDoc, onSnapshot } from "firebase/firestore";
-import router from "next/router";
 import { deleteDoc } from "firebase/firestore";
-
 
 const firebaseConfig = {
     apiKey: "AIzaSyCmbeYUMgkPRegpqdquZBWThZI-1hBul90",
@@ -22,7 +20,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 var user;
-
+var data12 = {
+    email: '',
+    password: ''
+}
 
 export function createAccount(email, password, customData) {
     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
@@ -37,13 +38,15 @@ export function createAccount(email, password, customData) {
     }).catch((error) => {
         console.log(error.message);
     })
-}
+}// ok
+
 export async function login(email, password) {
     var value
     await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         user = userCredential.user;
         value = true
-
+        data12.email = email;
+        data12.password = password;
     }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -51,7 +54,8 @@ export async function login(email, password) {
         value = false
     })
     return value
-}
+}// ok
+
 export async function setUser(customData) {
     var numero = Math.floor(Math.random() * 999) + 1;
     const db = getFirestore();
@@ -77,7 +81,7 @@ export async function setUser(customData) {
     }).catch((error) => {
         console.log(error.message);
     })
-}
+}// ok
 
 export async function getGrouping() {
     const db = getFirestore(app);
@@ -89,7 +93,7 @@ export async function getGrouping() {
     const data = snapshot.docs.map((doc) => doc.data());
     return data;
 
-}
+}// ok
 export async function getMembersOfAGrouping(group) {
     const db = getFirestore(app);
 
@@ -98,38 +102,25 @@ export async function getMembersOfAGrouping(group) {
     const snapshot = await getDocs(membersQuery);
     const data = snapshot.docs.map((doc) => doc.data());
     return data
-}
+}// ok
 export async function getAllUsers() {
     const db = getFirestore(app);
-
+    console.log(`Texto da função getAllUsers email do registrador: ${data12.email}`)
     var ref = collection(db, "users");
-    var usersQuery = query(ref,where("registrador", "==", user.email), orderBy("nome"))
+    var usersQuery = query(ref,where("registrador", "==", data12.email), orderBy("nome"))
     const snapshot = await getDocs(usersQuery);
     const data = snapshot.docs.map((doc) => doc.data());
     return data
 
+}// ok
+export async function deleteUser(chave){
+    const db = getFirestore(app);
+    const docRef = doc(db, 'users', chave);
+    await deleteDoc(docRef);
 }
+
 export async function deleteGrouping(group) {
     const db = getFirestore(app);
     const docRef = doc(db, 'agrupamento', group);
     await deleteDoc(docRef);
 }
-export async function deleteUsers(chave) {
-    const db = getFirestore(app);
-    if(!db){
-        console.error('getFirestore retornou undefined');
-        return;
-    }
-    const docRef = doc(db, 'users', chave);
-    if(!docRef){
-        console.error('doc retornou undefined')
-        return;
-    }
-    await deleteDoc(docRef);
-   
-}
-
-/** const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const docRef = doc(db, 'users', key);
-    await deleteDoc(docRef); */

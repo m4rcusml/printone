@@ -13,10 +13,17 @@ export default function Registro() {
     }
     var [users, setUsers] = useState([])
     var [isToShow, setIsToShow] = useState(false)
-
+    const refresh = () => {
+        setIsToShow(false);
+        getGrouping().then((grouping) => {
+            setUsers(grouping);
+            setIsToShow(true);
+        });
+    }
     useEffect(() => {
         getAllUsers().then((data) => {
             setUsers(data);
+            console.log(data);
             setIsToShow(true);
         })
     }, [])
@@ -30,7 +37,7 @@ export default function Registro() {
                     {
                         isToShow &&
                         users?.map((user) => (
-                            <RegisterText label={user.nome} chave={user.id}/>
+                            <RegisterText func={refresh} label={user.nome} chave={user.CPF}/>
                         ))
                     }
 

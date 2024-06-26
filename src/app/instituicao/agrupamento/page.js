@@ -22,11 +22,20 @@ export default function Agrupamento() {
             setIsToShow(true);
         });
     }, [])
+    const refresh = () => {
+        setIsToShow(false);
+        getGrouping().then((grouping) => {
+            setUsers(grouping);
+            setIsToShow(true);
+        });
+    }
 
     function handleAdd() {
         setComponent()
     }
-
+    const func1 = () => {
+        OpenPopUp(user.agrupamento)
+    }
     return (
         <div className={styles.container}>
             <Header />
@@ -38,10 +47,7 @@ export default function Agrupamento() {
                     {
                         isToShow &&
                             users?.map((user) => (
-                                <div onClick={ () => {OpenPopUp(user.agrupamento)} }>
-                                    <Grupo group={user.agrupamento}/>
-                                </div>
-                                
+                                    <Grupo func2={ refresh} func={func1 } group={user.agrupamento}/>
                             ))
                     }
 
