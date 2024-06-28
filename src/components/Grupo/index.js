@@ -2,8 +2,7 @@
 import { deleteGrouping } from '../../firebase/firebase';
 import * as styles from './styles.module.css';
 
-export function Grupo({ group, func, func2 }) {
-
+export function Grupo({ group, func, func2, func3 }) {
     function RefreshComp(){
         var element = document.getElementById(group);
         element.innerHTML = "";
@@ -22,7 +21,7 @@ export function Grupo({ group, func, func2 }) {
                     X
                 </h3>
             </div>
-            <div onClick={ () => { func() }} className={styles.details}>
+            <div onClick={ () => { func(group) }} className={styles.details}>
                 <div className={styles.box} />
                 <div className={styles.box} />
                 <div className={styles.box} />

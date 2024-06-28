@@ -9,8 +9,9 @@ import { useEffect, useState } from 'react';
 export default function Agrupamento() {
     //PopUp
     var [component, setComponent] = useState(null)
-    async function OpenPopUp(grouping){
-        var members = await getMembersOfAGrouping(grouping);
+    const OpenPopUp = async (grouping) => {
+        
+        var members = await getMembersOfAGrouping(grouping)
         setComponent(<PopUp members={members} grouping={grouping} setComp={setComponent} />)
     }
     // get agrupamentos
@@ -33,9 +34,7 @@ export default function Agrupamento() {
     function handleAdd() {
         setComponent()
     }
-    const func1 = () => {
-        OpenPopUp(user?.agrupamento)
-    }
+    
     return (
         <div className={styles.container}>
             <Header />
@@ -47,7 +46,7 @@ export default function Agrupamento() {
                     {
                         isToShow &&
                             users?.map((user) => (
-                                    <Grupo func2={ refresh} func={func1 } group={user.agrupamento}/>
+                                    <Grupo func2={ refresh} func={ OpenPopUp } group={user.agrupamento}/>
                             ))
                     }
 

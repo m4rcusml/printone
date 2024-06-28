@@ -96,9 +96,10 @@ export async function getGrouping() {
 }// ok
 export async function getMembersOfAGrouping(group) {
     const db = getFirestore(app);
-
+//, where("agrupamento", "==", group || ''
     var ref = collection(db, "users");
-    var membersQuery = query(ref, where("agrupamento", "==", group || ''))
+    console.log(group)
+    var membersQuery = query(ref, where("agrupamento", "==", `${group}` ))
     const snapshot = await getDocs(membersQuery);
     const data = snapshot.docs.map((doc) => doc.data());
     return data
