@@ -19,7 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-var user;
+export var user;
 var data12 = {
     email: '',
     password: ''
@@ -98,7 +98,7 @@ export async function getMembersOfAGrouping(group) {
     const db = getFirestore(app);
 
     var ref = collection(db, "users");
-    var membersQuery = query(ref, where("agrupamento", "==", group))
+    var membersQuery = query(ref, where("agrupamento", "==", group || ''))
     const snapshot = await getDocs(membersQuery);
     const data = snapshot.docs.map((doc) => doc.data());
     return data

@@ -3,7 +3,7 @@ import { Header } from '../../../components/Header';
 import { Grupo } from '../../../components/Grupo';
 import styles from '../styles.module.css';
 import * as grupoStyles from '../../../components/Grupo/styles.module.css';
-import { getGrouping, getMembersOfAGrouping } from '../../../firebase/firebase';
+import { getGrouping, getMembersOfAGrouping, user } from '../../../firebase/firebase';
 import { PopUp } from '../../../components/PopUp'
 import { useEffect, useState } from 'react';
 export default function Agrupamento() {
@@ -34,7 +34,7 @@ export default function Agrupamento() {
         setComponent()
     }
     const func1 = () => {
-        OpenPopUp(user.agrupamento)
+        OpenPopUp(user?.agrupamento)
     }
     return (
         <div className={styles.container}>
