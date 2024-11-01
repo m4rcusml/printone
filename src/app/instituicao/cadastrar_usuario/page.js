@@ -18,7 +18,6 @@ export default function CadastrarUsuario() {
             selectedValue = radioInput.value;
           }
         });
-        
         var nome = document.getElementById('Nome');
         var cpf = document.getElementById('CPF')
         var dataDeNascimento = document.getElementById('Data de nascimento')
@@ -94,7 +93,6 @@ export default function CadastrarUsuario() {
                         label='Qual agrupamento o usuário pertence?'
                         placeholder='Digite o agrupamento do usuário'
                     />
-                    
                     <button className={styles.button}>Cadastrar</button>
                 </form>
             </main>
